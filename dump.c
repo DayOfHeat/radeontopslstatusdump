@@ -54,13 +54,6 @@ void dumpdata(const unsigned int ticks, const char file[], const unsigned int li
 
 	// Check the file can be output to
 	FILE *f = NULL;
-	if (file[0] == '-')
-		f = stdout;
-	else
-		f = fopen(file, "a");
-
-	if (!f)
-		die(_("Can't open file for writing."));
 
 	// This does not need to be atomic. A delay here is acceptable.
 	while(!results)
@@ -70,6 +63,12 @@ void dumpdata(const unsigned int ticks, const char file[], const unsigned int li
 	unsigned int count;
 
 	for (count = limit; !limit || count; count--) {
+  	if (file[0] == '-')
+	  	f = stdout;
+	  else
+		  f = fopen(file, "w");
+  	if (!f)
+		  die(_("Can't open file for writing."));
 
 		struct timeval t;
 		gettimeofday(&t, NULL);
@@ -148,8 +147,12 @@ void dumpdata(const unsigned int ticks, const char file[], const unsigned int li
 		fflush(f);
 
 		// Did we get a termination signal?
-		if (quit)
+		if (quit){
 			break;
+    }
+    else {
+     fclose(f); 
+    }
 
 		// No sleeping on the last line.
 		if (!limit || count > 1)
@@ -160,6 +163,5 @@ void dumpdata(const unsigned int ticks, const char file[], const unsigned int li
 
 	if (f != stdout) {
 		fsync(fileno(f));
-		fclose(f);
 	}
 }
