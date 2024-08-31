@@ -1,3 +1,6 @@
+# radeontopslstatus
+A fork of RadeonTop for better use with suckless's slstatus. Forked by DayOfHeat 
+
 RadeonTop
 =========
 
