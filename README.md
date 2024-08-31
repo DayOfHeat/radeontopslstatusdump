@@ -1,5 +1,5 @@
 # radeontopslstatus
-A fork of RadeonTop for better use with suckless's slstatus. Forked by DayOfHeat 
+A fork of RadeonTop for better use with suckless's slstatus. Files dumped with -d option now replace each other for use in the cat or run_command operators in slstatus instead of appending to the file. Forked by DayOfHeat 
 
 RadeonTop
 =========
